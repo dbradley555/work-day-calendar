@@ -25,39 +25,21 @@ let textAreaContent = {
   fivePM: '',
 };
 
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+// function being called at page load
 $(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
   saveBtn.click(addToLocalStorage);
-
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
   updateClock();
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
   pullFromLocalStorage();
-  // TODO: Add code to display the current date in the header of the page.
   showCurrentDate();
 });
 
+// function to show date in specific format in title
 function showCurrentDate() {
   let currentDate = dayjs().format('dddd MMMM D, YYYY');
   currentDay.text(currentDate);
 }
 
+// function to update the styles depending on time
 function updateClock() {
   // set variable to dayjs hour
   let clockHour = dayjs().format('HH');
@@ -87,6 +69,7 @@ function updateClock() {
   setTimeout(updateClock, 1000);
 }
 
+// function to add text to local storage when clicking save
 function addToLocalStorage() {
   let textAreaContent = {
     nineAM: hourNineInput.val(),
@@ -102,6 +85,7 @@ function addToLocalStorage() {
   localStorage.setItem('textAreaContent', JSON.stringify(textAreaContent));
 }
 
+// function to pull from local storage on page load any previous input
 function pullFromLocalStorage() {
   let storedTextAreaContent = JSON.parse(
     localStorage.getItem('textAreaContent')
@@ -112,6 +96,7 @@ function pullFromLocalStorage() {
   renderTextAreaContent();
 }
 
+// set the saved text content to the calendar values upon load
 function renderTextAreaContent() {
   hourNineInput.text(textAreaContent.nineAM);
   hourTenInput.text(textAreaContent.tenAM);
