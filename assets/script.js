@@ -30,8 +30,8 @@ $(function () {
   saveBtn.click(addToLocalStorage);
   updateClock();
   pullFromLocalStorage();
-  showCurrentDate();
 });
+showCurrentDate();
 
 // function to show date in specific format in title
 function showCurrentDate() {
